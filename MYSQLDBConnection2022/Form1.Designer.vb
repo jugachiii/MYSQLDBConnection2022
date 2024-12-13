@@ -20,8 +20,8 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Label1 = New Label()
         Label2 = New Label()
-        TextBox1 = New TextBox()
-        TextBox2 = New TextBox()
+        TextBox_Username = New TextBox()
+        TextBox_Password = New TextBox()
         Button2 = New Button()
         Welcomemsg = New Label()
         SuspendLayout()
@@ -48,19 +48,19 @@ Partial Class Form1
         Label2.TabIndex = 2
         Label2.Text = "Password"
         ' 
-        ' TextBox1
+        ' TextBox_Username
         ' 
-        TextBox1.Location = New Point(539, 390)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(100, 29)
-        TextBox1.TabIndex = 3
+        TextBox_Username.Location = New Point(539, 390)
+        TextBox_Username.Name = "TextBox_Username"
+        TextBox_Username.Size = New Size(100, 29)
+        TextBox_Username.TabIndex = 3
         ' 
-        ' TextBox2
+        ' TextBox_Password
         ' 
-        TextBox2.Location = New Point(539, 430)
-        TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(100, 29)
-        TextBox2.TabIndex = 4
+        TextBox_Password.Location = New Point(539, 430)
+        TextBox_Password.Name = "TextBox_Password"
+        TextBox_Password.Size = New Size(100, 29)
+        TextBox_Password.TabIndex = 4
         ' 
         ' Button2
         ' 
@@ -93,8 +93,8 @@ Partial Class Form1
         ClientSize = New Size(1143, 630)
         Controls.Add(Welcomemsg)
         Controls.Add(Button2)
-        Controls.Add(TextBox2)
-        Controls.Add(TextBox1)
+        Controls.Add(TextBox_Password)
+        Controls.Add(TextBox_Username)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Font = New Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -107,8 +107,8 @@ Partial Class Form1
 
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox_Username As TextBox
+    Friend WithEvents TextBox_Password As TextBox
     Friend WithEvents Button2 As Button
     Friend WithEvents Welcomemsg As Label
 

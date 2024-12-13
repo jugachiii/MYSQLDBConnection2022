@@ -17,8 +17,8 @@ Public Class Form1
             ' Define the SQL query with parameters to prevent SQL injection
             Dim Query As String = "SELECT * FROM accountdb WHERE username = @username AND password = @password"
             COMMAND = New MySqlCommand(Query, conn)
-            COMMAND.Parameters.AddWithValue("@username", TextBox1.Text)
-            COMMAND.Parameters.AddWithValue("@password", TextBox2.Text)
+            COMMAND.Parameters.AddWithValue("@username", TextBox_Username.Text)
+            COMMAND.Parameters.AddWithValue("@password", TextBox_Password.Text)
 
             Dim READER As MySqlDataReader = COMMAND.ExecuteReader()
             Dim count As Integer = 0
