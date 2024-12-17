@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+Imports MySql.Data.MySqlClient
 Public Class Form2
     Dim gender As String
     Dim conn As MySqlConnection
@@ -92,7 +92,7 @@ Public Class Form2
         Try
             conn.Open()
             Dim Query As String
-            Query = "DELETE FROM data WHERE ID = '" & TextBox_id.Text & "'"
+            Query = "DELETE FROM final_indi.accountdb WHERE id = '" & TextBox_id.Text & "'"
             COMMAND = New MySqlCommand(Query, conn)
             MsgBox("Data deleted successfully!")
             conn.Close()
@@ -171,7 +171,7 @@ Public Class Form2
             conn.Open()
 
             Dim query As String
-            query = "SELECT id as 'Employee ID', fname as 'First Name', lname as 'Last Name', age as 'Age' from final_indi.accountdb"
+            query = "SELECT id as 'Employee ID', fname as 'First Name', lname as 'Last Name', age as 'Age', gender as 'Gender' FROM final_indi.accountdb"
             COMMAND = New MySqlCommand(query, conn)
             SDA.SelectCommand = COMMAND
             SDA.Fill(dbDataSet)
@@ -187,8 +187,9 @@ Public Class Form2
     End Sub
 
     Private Sub Load_Table_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles Load_Table.Click
-        Dim conn As New MySqlConnection
+        conn = New MySqlConnection
         conn.ConnectionString = ("server=localhost;userid=root;password='';database=final_indi")
+
         Dim SDA As New MySqlDataAdapter
         Dim dbDataSet As New DataTable
         Dim bSource As New BindingSource
@@ -198,39 +199,42 @@ Public Class Form2
             conn.Open()
 
             Dim query As String
-            query = "SELECT * FROM final_indi.accountdb"
+            query = "SELECT id as 'id', fname, lname, age, gender FROM final_indi.accountdb"
             COMMAND = New MySqlCommand(query, conn)
             SDA.SelectCommand = COMMAND
             SDA.Fill(dbDataSet)
             bSource.DataSource = dbDataSet
             DataGridView1.DataSource = bSource
             SDA.Update(dbDataSet)
+            conn.Close()
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-        Finally
-            conn.Dispose()
+            conn.Close()
         End Try
 
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         If e.RowIndex >= 0 Then
-            Dim row As DataGridViewRow = Me.DataGridView1.Rows(e.RowIndex)
+            Dim row As DataGridViewRow
+            row = Me.DataGridView1.Rows(e.RowIndex)
 
-            TextBox_id.Text = row.Cells("id").Value.ToString()
-            TextBox_fname.Text = row.Cells("fname").Value.ToString()
-            TextBox_lname.Text = row.Cells("lname").Value.ToString()
-            TextBox_age.Text = row.Cells("age").Value.ToString()
-            gender = row.Cells("gender").Value.ToString()
-            DateTimePicker_dob.Text = row.Cells("dob").Value.ToString()
+            TextBox_id.Text = row.Cells("Employee ID").Value.ToString()
+            TextBox_fname.Text = row.Cells("First Name").Value.ToString()
+            TextBox_lname.Text = row.Cells("Last Name").Value.ToString()
+            TextBox_age.Text = row.Cells("Age").Value.ToString()
+
+            MessageBox.Show("Gender: " & row.Cells("Gender").Value.ToString())
         End If
-
     End Sub
+
+
+
 
     Private Sub Search_txt_TextChanged(sender As Object, e As EventArgs) Handles Search_txt.TextChanged
         Dim DV As New DataView(dbDataSet)
-        DV.RowFilter = String.Format("fname Like '%{0}%'", Search_txt.Text)
+        DV.RowFilter = String.Format("[First Name] LIKE '%{0}%'", Search_txt.Text)
         DataGridView1.DataSource = DV
     End Sub
 
